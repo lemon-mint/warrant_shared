@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS objectType (
   deletedAt timestamp(6) NULL DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY object_type_uk_type_id (typeId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS warrant (
   id int NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS warrant (
   UNIQUE KEY warrant_uk_obj_rel_sub_ctx_hash (objectType, objectId, relation, subjectType, subjectId, subjectRelation, contextHash),
   KEY warrant_uk_sub_type_sub_id_sub_rel (subjectType, subjectId, subjectRelation),
   KEY warrant_uk_obj_type_obj_id_rel (objectType, objectId, relation)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS context (
   id int NOT NULL AUTO_INCREMENT,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS context (
   PRIMARY KEY (id),
   UNIQUE KEY context_uk_warrant_id_name (warrantId, name),
   CONSTRAINT context_fk_warrant_id FOREIGN KEY (warrantId) REFERENCES warrant (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS object (
   id int NOT NULL AUTO_INCREMENT,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS object (
   UNIQUE KEY object_uk_obj_type_obj_id (objectType, objectId),
   KEY object_uk_created_at_object_id (createdAt, objectId),
   KEY object_uk_object_type_object_id (objectType, objectId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS permission (
   id int NOT NULL AUTO_INCREMENT,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS permission (
   KEY permission_uk_created_at_permission_id (createdAt, permissionId),
   KEY permission_uk_name_permission_id (name, permissionId),
   CONSTRAINT permission_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS role (
   id int NOT NULL AUTO_INCREMENT,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS role (
   KEY role_uk_created_at_role_id (createdAt, roleId),
   KEY role_uk_name_role_id (name, roleId),
   CONSTRAINT role_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS tenant (
   id int NOT NULL AUTO_INCREMENT,
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS tenant (
   KEY tenant_uk_created_at_tenant_id (createdAt, tenantId),
   KEY tenant_uk_name_tenant_id (name, tenantId),
   CONSTRAINT tenant_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS user (
   id int NOT NULL AUTO_INCREMENT,
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS user (
   KEY user_uk_created_at_user_id (createdAt, userId),
   KEY user_uk_email_user_id (email, userId),
   CONSTRAINT user_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS feature (
   id int NOT NULL AUTO_INCREMENT,
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS feature (
   KEY feature_uk_created_at_feature_id (createdAt, featureId),
   KEY feature_uk_name_feature_id (name, featureId),
   CONSTRAINT feature_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS pricingTier (
   id int NOT NULL AUTO_INCREMENT,
@@ -153,6 +153,6 @@ CREATE TABLE IF NOT EXISTS pricingTier (
   KEY pricing_tier_uk_created_at_pricing_tier_id (createdAt, pricingTierId),
   KEY pricing_tier_uk_name_pricing_tier_id (name, pricingTierId),
   CONSTRAINT pricing_tier_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 COMMIT;

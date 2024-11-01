@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS permission (
   KEY permission_uk_created_at_permission_id (createdAt, permissionId),
   KEY permission_uk_name_permission_id (name, permissionId),
   CONSTRAINT permission_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO permission(objectId, permissionId, name, description, createdAt, updatedAt, deletedAt)
 SELECT id, objectId, meta->>'$.name', meta->>'$.description', createdAt, updatedAt, deletedAt
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS role (
   KEY role_uk_created_at_role_id (createdAt, roleId),
   KEY role_uk_name_role_id (name, roleId),
   CONSTRAINT role_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO role(objectId, roleId, name, description, createdAt, updatedAt, deletedAt)
 SELECT id, objectId, meta->>'$.name', meta->>'$.description', createdAt, updatedAt, deletedAt
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS tenant (
   KEY tenant_uk_created_at_tenant_id (createdAt, tenantId),
   KEY tenant_uk_name_tenant_id (name, tenantId),
   CONSTRAINT tenant_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO tenant(objectId, tenantId, name, createdAt, updatedAt, deletedAt)
 SELECT id, objectId, meta->>'$.name', createdAt, updatedAt, deletedAt
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS user (
   KEY user_uk_created_at_user_id (createdAt, userId),
   KEY user_uk_email_user_id (email, userId),
   CONSTRAINT user_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO user(objectId, userId, email, createdAt, updatedAt, deletedAt)
 SELECT id, objectId, meta->>'$.email', createdAt, updatedAt, deletedAt
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS feature (
   KEY feature_uk_created_at_feature_id (createdAt, featureId),
   KEY feature_uk_name_feature_id (name, featureId),
   CONSTRAINT feature_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO feature(objectId, featureId, name, description, createdAt, updatedAt, deletedAt)
 SELECT id, objectId, meta->>'$.name', meta->>'$.description', createdAt, updatedAt, deletedAt
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS pricingTier (
   KEY pricing_tier_uk_created_at_pricing_tier_id (createdAt, pricingTierId),
   KEY pricing_tier_uk_name_pricing_tier_id (name, pricingTierId),
   CONSTRAINT pricing_tier_fk_object_id FOREIGN KEY (objectId) REFERENCES object (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO pricingTier(objectId, pricingTierId, name, description, createdAt, updatedAt, deletedAt)
 SELECT id, objectId, meta->>'$.name', meta->>'$.description', createdAt, updatedAt, deletedAt

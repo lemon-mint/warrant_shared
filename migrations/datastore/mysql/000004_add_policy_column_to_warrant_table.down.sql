@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS context (
   PRIMARY KEY (id),
   UNIQUE KEY context_uk_warrant_id_name (warrantId, name),
   CONSTRAINT context_fk_warrant_id FOREIGN KEY (warrantId) REFERENCES warrant (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DELETE FROM warrant
 WHERE policy != "";
