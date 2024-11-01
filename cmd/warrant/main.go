@@ -38,6 +38,24 @@ import (
 	"github.com/warrant-dev/warrant/pkg/service"
 )
 
+var pid = os.Getpid()
+
+func init() {
+	go func() {
+		for {
+			ppid := os.Getppid()
+			if ppid == 1 {
+				// send sigterm to self
+				cmd := exec.Command("kill", "-TERM", strconv.Itoa(pid))
+				cmd.Run()
+				time.Sleep(time.Second * 60)
+				os.Exit(1)
+			}
+			time.Sleep(time.Second * 1)
+		}
+	}()
+}
+
 const (
 	MySQLDatastoreMigrationVersion    = 000006
 	PostgresDatastoreMigrationVersion = 000007
@@ -201,7 +219,12 @@ func main() {
 		log.Fatal().Err(err).Msg("init: could not initialize service router")
 	}
 
-	log.Info().Msgf("init: listening on port %d", cfg.GetPort())
-	shutdownErr := http.ListenAndServe(fmt.Sprintf(":%d", cfg.GetPort()), router)
+	ln, err := net.Listen("tcp", ":0")
+	if err != nil {
+		panic(err)
+	}
+	defer ln.Close()
+	fmt.Println("{\"port\":", ln.Addr().(*net.TCPAddr).Port, "}")
+	shutdownErr := http.Serve(ln, router)
 	log.Fatal().Err(shutdownErr).Msg("shutdown")
 }
